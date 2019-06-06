@@ -1,3 +1,5 @@
+var base_url = "http://localhost:3000/";
+
 function Model(nome, nascimento, cpf, peso, altura, descricao, senha) {
     this.nome = ko.observable(nome);
     this.nascimento = ko.observable(nascimento);
@@ -21,19 +23,29 @@ function ViewModel() {
 
     self.list = ko.observableArray([]);
 
-    self.carregar = function() {
-        $.get("http://localhost:3000/pessoas", function(data) {
-            self.list(data);
+    // self.carregar = function() {
+    //     $.get(base_url + "pessoas", function(data) {
+    //         self.list(data);
+    //     });
+    // }
+
+    self.carregar = function(data) {
+        $.ajax({
+            url: base_url + "pessoas",
+            type: 'GET',
+            success: function(result) {
+                self.list(result);
+            },
+            error: function(erro) {
+                console.log(erro);
+            }
         });
     }
 
     self.criar = function() {
-
         var model = new Model(self.nome(), self.nascimento(), self.cpf(), self.peso(), self.altura(), self.descricao(), self.senha());
-
-        $.post("http://localhost:3000/pessoas/pessoa", model).done(function(data) {
+        $.post(base_url + "pessoas/pessoa", model).done(function(data) {
             self.carregar();
-
             self.nome("");
             self.nascimento("");
             self.cpf("");
@@ -42,11 +54,38 @@ function ViewModel() {
             self.descricao("");
             self.senha("");
         });
-
-
     }
 
+    self.remover = function(data) {
+        $.ajax({
+            url: base_url + "pessoas/pessoa/" + data.id,
+            type: 'DELETE',
+            success: function(result) {
+                self.carregar();
+            },
+            error: function(erro) {
+                console.log(erro);
+            }
+        });
+    }
+
+
+    self.editar = function(data) {
+        /*
+        $.ajax({
+            url: base_url + "pessoas/pessoa/" + data.id,
+            type: 'DELETE',
+            success: function(result) {
+                self.carregar();
+            },
+            error: function(erro) {
+                console.log(erro);
+            }
+        });
+        */
+    }
 }
+
 vm = new ViewModel();
 
 ko.applyBindings(vm);
