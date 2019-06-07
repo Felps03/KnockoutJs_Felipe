@@ -64,7 +64,7 @@
                         <td data-bind="text: descricao"></td>
                         <td data-bind="text: senha"></td>
 
-                        <td><button type="button" data-bind="value: id" data-toggle="modal" data-target="#editarPessoas" class="btn btn-light"><i class="fas fa-pen-square"></i></button></td>
+                        <td><button type="button" data-bind="click: $parent.busca, value: id" data-toggle="modal" data-target="#editarPessoas" class="btn btn-light"><i class="fas fa-pen-square"></i></button></td>
                         <td><button type="button" data-bind="click: $parent.remover, value: id" class="btn btn-light"><i class="fas fa-trash-alt"></i></button></td>
                     </tr>
                 </tbody>
@@ -86,12 +86,36 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Nome</label>
-                        <input type="text" class="form-control" id="recipient-name">
+                        <label for="id" class="col-form-label">ID</label>
+                        <input type="text" class="form-control" data-bind="value: id" id="id">
                     </div>
                     <div class="form-group">
-                        <label for="message-text" class="col-form-label">Message:</label>
-                        <textarea class="form-control" id="message-text"></textarea>
+                        <label for="nome" class="col-form-label">Nome</label>
+                        <input type="text" class="form-control" data-bind="value: nome" id="nome">
+                    </div>
+                    <div class="form-group">
+                        <label for="nascimento" class="col-form-label">Nascimento</label>
+                        <input type="data" class="form-control" data-bind="value: nascimento" id="nascimento"></input>
+                    </div>
+                    <div class="form-group">
+                        <label for="cpf" class="col-form-label">CPF</label>
+                        <input type="text" class="form-control" data-bind="value: cpf" id="cpf"></input>
+                    </div>
+                    <div class="form-group">
+                        <label for="peso" class="col-form-label">Peso</label>
+                        <input type="text" class="form-control" data-bind="value: peso" id="peso"></input>
+                    </div>
+                    <div class="form-group">
+                        <label for="altura" class="col-form-label">Altura</label>
+                        <input type="text" class="form-control" data-bind="value: altura" id="altura"></input>
+                    </div>
+                    <div class="form-group">
+                        <label for="descricao" class="col-form-label">Descricao</label>
+                        <textarea class="form-control" data-bind="value: descricao" id="descricao"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="senha" class="col-form-label">Senha</label>
+                        <input type="text" class="form-control" data-bind="value: senha" id="senha"></textarea>
                     </div>
                 </form>
             </div>

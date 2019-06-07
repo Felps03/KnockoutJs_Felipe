@@ -12,7 +12,7 @@ function Model(nome, nascimento, cpf, peso, altura, descricao, senha) {
 
 function ViewModel() {
     var self = this;
-
+    self.id = ko.observable();
     self.nome = ko.observable();
     self.nascimento = ko.observable();
     self.cpf = ko.observable();
@@ -69,6 +69,25 @@ function ViewModel() {
         });
     }
 
+    self.busca = function(data) {
+        $.ajax({
+            url: base_url + "pessoas/pessoa/" + data.id,
+            type: 'GET',
+            success: function(result) {
+                self.id(data.id);
+                self.nome(result[0].nome);
+                self.nascimento(result[0].nascimento);
+                self.cpf(result[0].cpf);
+                self.peso(result[0].peso);
+                self.altura(result[0].altura);
+                self.descricao(result[0].descricao);
+                self.senha(result[0].senha);
+            },
+            error: function(erro) {
+                console.log(erro);
+            }
+        });
+    }
 
     self.editar = function(data) {
         /*
